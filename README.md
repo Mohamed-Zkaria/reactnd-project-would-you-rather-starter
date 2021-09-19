@@ -1,6 +1,6 @@
 # Would You Rather Project
 
-This project is for Udacity's React & Redux course.
+This is a project for udacity Advanced front-end web-development.
 ## How to install
 
 To install you need Nodejs and npm to be installed on your machine. 
