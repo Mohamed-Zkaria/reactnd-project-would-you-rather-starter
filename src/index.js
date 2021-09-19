@@ -5,10 +5,18 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
+import { createStore } from "redux";
+import {Provider} from "react-redux";
+import combinedReducers from "./reducers";
+import middlewares from "./middlewares";
+
+const store = createStore(combinedReducers, middlewares);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
