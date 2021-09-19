@@ -1,12 +1,14 @@
 import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
+import Nav from "./Nav";
 function App() {
   return (
-    <div className="App">
+    <div className="App container">
       <BrowserRouter>
+        <Nav />
         <Switch>
           <Route exact path="/">
-            <div>
+            <div className="container">
               Home
             </div>
           </Route>
@@ -20,9 +22,9 @@ function App() {
               Leader-Board
             </div>
           </Route>
-          <Route exact path="/login ">
+          <Route exact path="/login">
             <div>
-              answers
+              login
             </div>
           </Route>
           <Route exact path="/logout">
