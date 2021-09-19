@@ -1,6 +1,6 @@
 # Would You Rather Project
 
-This is the starter code for the final assessment project for Udacity's React & Redux course.
+This project is for Udacity's React & Redux course.
 ## How to install
 
 To install you need Nodejs and npm to be installed on your machine. 
