@@ -6,6 +6,9 @@ import Nav from "./Nav";
 
 import {handleDataRetrieval} from "../actions/shared";
 
+import Login from "./Login.js";
+import Logout from "./Logout";
+
 class App extends React.Component {
   componentDidMount(){
     this.props.dispatch(handleDataRetrieval())
@@ -36,18 +39,14 @@ class App extends React.Component {
                 </div>
               </Route>
               <Route exact path="/login">
-                <div>
-                  login
-                </div>
+                <Login />
               </Route>
               <Route exact path="/logout">
-                <div>
-                  logout
-                </div>
+                <Logout />
               </Route>
               <Route>
                 <div>
-                  404
+                  <h1>Page not found 404</h1>
                 </div>
               </Route>
             </Switch>

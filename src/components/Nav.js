@@ -1,7 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-export default function Nav(){
+function Nav(props){
+    const {users} = props;
+    const {authedUser} = props
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid d-flex flex-row">
@@ -10,8 +13,30 @@ export default function Nav(){
                     <Link className="nav-link" to="/new-questions">New Question</Link>
                     <Link className="nav-link" to="/Leader-board">Leader Board</Link>
                 </div>
-                <Link className="nav-link" to="/logout">logout</Link>   
+                {
+                    users && authedUser &&        
+                    <div>
+                        <span>Hello, {users[authedUser].name}</span>
+                    </div>
+                }
+                {
+                    authedUser ? 
+                    <div>
+                        <Link className="nav-link" to="/logout">logout</Link>
+                    </div>
+                    : 
+                    <div>
+                        <Link className="nav-link" to="/login">Login</Link>
+                    </div>
+                }
             </div>
         </nav>
     )
 }
+
+function mapStateToProps({users, authedUser}){
+    return {
+        users, authedUser
+    }
+}
+export default connect(mapStateToProps)(Nav);
