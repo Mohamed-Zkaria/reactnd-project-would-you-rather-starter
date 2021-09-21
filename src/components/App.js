@@ -8,6 +8,9 @@ import {handleDataRetrieval} from "../actions/shared";
 
 import Login from "./Login.js";
 import Logout from "./Logout";
+import Leaderboard from "./Leaderboard";
+import Home from "./Home";
+import Question from "./Question";
 
 class App extends React.Component {
   componentDidMount(){
@@ -24,19 +27,18 @@ class App extends React.Component {
             <LoadingBar />
             <Switch>
               <Route exact path="/">
-                <div>
-                  Home
-                </div>
+                <Home />
               </Route>
               <Route exact path="/new-questions">
                 <div>
                   New Questions
                 </div>
               </Route>
+              <Route path="/question/:questionId">
+                <Question />
+              </Route>
               <Route exact path="/Leader-board">
-                <div>
-                  Leader-Board
-                </div>
+                <Leaderboard />
               </Route>
               <Route exact path="/login">
                 <Login />

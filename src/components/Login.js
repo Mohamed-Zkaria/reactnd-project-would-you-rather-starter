@@ -24,22 +24,22 @@ class Login extends React.Component{
         
         let {userId} = this.state;
 
-        this.props.dispatch(handleLogin(userId))
-                
-        this.setState({logged: true});
+        if(userId){
+            this.props.dispatch(handleLogin(userId))            
+            this.setState({logged: true});
+        }
     }
 
 
     render(){
-        const {users} = this.props;
-        const {authedUser} = this.props;        
+        const {users, authedUser} = this.props;
         
         if(authedUser || this.state.logged){
             return <Redirect to="/"/>
         }
 
         return (       
-            <div className="container d-flex flex-column justify-content-evenly">
+            <div className="container d-flex flex-column justify-content-evenly text-center">
                 <h2>Login</h2>
                 <form onSubmit={this.handleSubmission}>
                     <select defaultValue="1" className="form-select" aria-label="Default select example" onChange={this.handleSelectChange}>
@@ -59,10 +59,10 @@ class Login extends React.Component{
     }
 }
 
-function mapStateToProps({users, setAuthedUser}){
+function mapStateToProps({users, authedUser}){
     return {
         users,
-        setAuthedUser
+        authedUser
     }
 }
 
