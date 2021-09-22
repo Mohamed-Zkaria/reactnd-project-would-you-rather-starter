@@ -11,6 +11,7 @@ import Logout from "./Logout";
 import Leaderboard from "./Leaderboard";
 import Home from "./Home";
 import Question from "./Question";
+import AnswerQuestion from "./AnswerQuestion";
 
 class App extends React.Component {
   componentDidMount(){
@@ -34,9 +35,9 @@ class App extends React.Component {
                   New Questions
                 </div>
               </Route>
-              <Route path="/question/:questionId">
-                <Question />
-              </Route>
+              <Route path="/question/:questionId" exact component={Question}/>
+              <Route path="/question-answer/:questionId" exact component={AnswerQuestion}/>
+              
               <Route exact path="/Leader-board">
                 <Leaderboard />
               </Route>

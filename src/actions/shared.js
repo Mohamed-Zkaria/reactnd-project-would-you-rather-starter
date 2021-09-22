@@ -1,6 +1,6 @@
 import {_getUsers, _getQuestions} from "../utils/_DATA";
 import { receiveUsers } from "./users";
-import { receiveQuestions } from "./questions";
+import { answerQuestion, receiveQuestions } from "./questions";
 import { showLoading, hideLoading } from 'react-redux-loading';
 import { setAuthedUser, unsetAuthedUser } from "./authedUser";
 
@@ -31,6 +31,14 @@ export function handleLogout(){
     return async (dispatch) => {
         dispatch(showLoading());
         dispatch(unsetAuthedUser());
-        dispatch(hideLoading())
+        dispatch(hideLoading());
+    }
+}
+
+export function handleaAnswerQuestion(authedUser, questionId, choosedOption){
+    return async(dispatch)=>{
+        dispatch(showLoading());
+        dispatch(answerQuestion(authedUser, questionId, choosedOption));
+        dispatch(hideLoading());
     }
 }
