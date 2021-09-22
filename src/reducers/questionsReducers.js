@@ -1,4 +1,4 @@
-import { ANSWER_QUESTION, RECEIVE_Questions } from "../actions/questions";
+import { ADD_QUESTION, ANSWER_QUESTION, RECEIVE_Questions } from "../actions/questions";
 
 export default function questionsReducer(state = {}, action){
     switch(action.type){
@@ -18,6 +18,12 @@ export default function questionsReducer(state = {}, action){
                         votes: state[action.questionId][action.choosedOption].votes.concat([action.authedUser])
                     }
                 }
+            }
+
+        case ADD_QUESTION:
+            return {
+                ...state,
+                ...action.question
             }
         default:
             return state;

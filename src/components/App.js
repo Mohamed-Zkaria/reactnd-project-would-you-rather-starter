@@ -12,6 +12,7 @@ import Leaderboard from "./Leaderboard";
 import Home from "./Home";
 import Question from "./Question";
 import AnswerQuestion from "./AnswerQuestion";
+import Addquestion from "./Addquestion";
 
 class App extends React.Component {
   componentDidMount(){
@@ -31,9 +32,7 @@ class App extends React.Component {
                 <Home />
               </Route>
               <Route exact path="/new-questions">
-                <div>
-                  New Questions
-                </div>
+                <Addquestion />
               </Route>
               <Route path="/question/:questionId" exact component={Question}/>
               <Route path="/question-answer/:questionId" exact component={AnswerQuestion}/>

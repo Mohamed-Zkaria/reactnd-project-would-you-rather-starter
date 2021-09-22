@@ -1,6 +1,6 @@
 import {_getUsers, _getQuestions} from "../utils/_DATA";
-import { receiveUsers } from "./users";
-import { answerQuestion, receiveQuestions } from "./questions";
+import { addAnswerToUser, addQuestionToUser, receiveUsers } from "./users";
+import { addQuestion, answerQuestion, receiveQuestions } from "./questions";
 import { showLoading, hideLoading } from 'react-redux-loading';
 import { setAuthedUser, unsetAuthedUser } from "./authedUser";
 
@@ -39,6 +39,33 @@ export function handleaAnswerQuestion(authedUser, questionId, choosedOption){
     return async(dispatch)=>{
         dispatch(showLoading());
         dispatch(answerQuestion(authedUser, questionId, choosedOption));
+        dispatch(hideLoading());
+    }
+}
+
+export function handleAddAnswerToUser(questionId, choosedOption, authedUser){
+    return async(dispatch) => {
+        dispatch(showLoading());
+        dispatch(addAnswerToUser(questionId, choosedOption, authedUser))
+        dispatch(hideLoading());
+
+    }
+}
+
+
+
+export function handleAddQuestion(question){
+    return async (dispatch) => {
+        dispatch(showLoading());
+        dispatch(addQuestion(question));
+        dispatch(hideLoading());
+    }
+}
+
+export function handleAddQuestionToUser(questionId, authedUser){
+    return async (dispatch) =>{
+        dispatch(showLoading());
+        dispatch(addQuestionToUser(questionId, authedUser));
         dispatch(hideLoading());
     }
 }

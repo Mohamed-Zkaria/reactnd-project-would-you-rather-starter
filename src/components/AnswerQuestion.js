@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import { handleaAnswerQuestion } from "../actions/shared";
+import { handleaAnswerQuestion, handleAddAnswerToUser } from "../actions/shared";
 
 
 class AnswerQuestion extends React.Component{
@@ -15,6 +15,7 @@ class AnswerQuestion extends React.Component{
 
         if(this.state.optionSelected){
             this.props.dispatch(handleaAnswerQuestion(this.props.authedUser, this.props.questionId, this.state.optionSelected));
+            this.props.dispatch(handleAddAnswerToUser(this.props.questionId, this.state.optionSelected, this.props.authedUser))
             this.setState({redirectToQuestion: true});
         }
         console.log({state: this.state})
