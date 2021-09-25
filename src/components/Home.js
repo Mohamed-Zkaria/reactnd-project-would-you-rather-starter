@@ -52,7 +52,7 @@ class Home extends React.Component{
                                 </li>
                             </ul>
                             <div className="tab-content">
-                                <div id="Answered" >                                                
+                                <div id="Answered" style={{display:"none"}}>                                                
                                     <h3>Answerd</h3>
                                     {questions && answredQuestions.sort((firstQuestion, secondQuestion)=>{
                                         return questions[secondQuestion].timestamp - questions[firstQuestion].timestamp;
@@ -60,7 +60,7 @@ class Home extends React.Component{
                                         return <Question questionId={questionKey} key={questionKey}/>
                                     })}
                                 </div>
-                                <div className="tab" id="Not-answered" style={{display:"none"}}>
+                                <div className="tab" id="Not-answered" >
                                     <h3>Not answred</h3>
                                     {questions && notAnswredQuestions.sort((firstQuestion, secondQuestion)=>{
                                         return questions[secondQuestion].timestamp - questions[firstQuestion].timestamp;

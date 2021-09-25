@@ -31,10 +31,10 @@ class App extends React.Component {
             <Switch>
 
               <ProtectedRoute exact path="/" component={Home} />
-              <ProtectedRoute exact path="/new-questions" component={Addquestion} />
+              <ProtectedRoute exact path="/add" component={Addquestion} />
               <ProtectedRoute path="/question/:questionId" exact component={Question}/>
               <ProtectedRoute path="/question-answer/:questionId" exact component={AnswerQuestion}/>
-              <ProtectedRoute exact path="/Leader-board" component ={Leaderboard}/>
+              <ProtectedRoute exact path="/Leaderboard" component ={Leaderboard}/>
              
               <Route exact path="/login">
                 <Login />
