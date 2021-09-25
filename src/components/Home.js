@@ -1,18 +1,31 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
+import Question from "./Question";
 
 class Home extends React.Component{
+    
+    handleTabs = (e) => {
+        let answeredTab = document.getElementById("Answered");
+        let notAnsweredTab = document.getElementById("Not-answered");
+        let btnId = e.target.id;
+        switch(btnId){
+            default:
+            case "show-answred":
+                answeredTab.style.display = "block";
+                notAnsweredTab.style.display = "none";
+            break;
+            case "show-not-answered":
+                answeredTab.style.display = "none";
+                notAnsweredTab.style.display = "block";                
+            break
+        }
+    }
 
     render(){
 
         const {questions, authedUser} = this.props
         let answredQuestions = [];
         let notAnswredQuestions = [];
-        if(!authedUser ){
-            return <Redirect to="/login"/>
-        }
 
         if(questions){
             answredQuestions = Object.keys(questions).filter( questionKey=>{
@@ -29,42 +42,48 @@ class Home extends React.Component{
             <div className="container d-flex flex-column justify-content-between text-center">
                 {
                     <div>
-                        <h3>Answerd</h3>
-                        {questions && answredQuestions.map(questionKey => {
-                            return (
-                                <div className="card" key={questionKey}>
-                                    <div className="card-body">
-                                        <h5 className="card-title">{`${questions[questionKey].author} Asks:`}</h5>
-                                        <p className="card-text">{questions[questionKey].optionOne.text}</p>
-                                        <p className="card-text">{questions[questionKey].optionTwo.text}</p>
-                                        <p className="card-text"><Link className="nav-link" to={`/question/${questionKey}`}>View poll</Link></p>
-                                    </div>
+                        <div>
+                            <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                <li className="nav-item" role="presentation">
+                                    <button className="btn btn-primary" id="show-answred" onClick={this.handleTabs}>Answered</button>
+                                </li>
+                                <li className="nav-item" role="presentation">
+                                    <button className="btn btn-primary" id="show-not-answered" onClick={this.handleTabs}>Not answered</button>
+                                </li>
+                            </ul>
+                            <div className="tab-content">
+                                <div id="Answered" >                                                
+                                    <h3>Answerd</h3>
+                                    {questions && answredQuestions.sort((firstQuestion, secondQuestion)=>{
+                                        return questions[secondQuestion].timestamp - questions[firstQuestion].timestamp;
+                                    }).map(questionKey => {
+                                        return <Question questionId={questionKey} key={questionKey}/>
+                                    })}
                                 </div>
-                            )
-                        })}
-                        <h3>Not answred</h3>
-                        {questions && notAnswredQuestions.map(questionKey => {
-                            return (
-                                <div className="card" key={questionKey}>
-                                    <div className="card-body">
-                                        <h5 className="card-title">{`${questions[questionKey].author} Asks:`}</h5>
-                                        <p className="card-text">{questions[questionKey].optionOne.text}</p>
-                                        <p className="card-text">{questions[questionKey].optionTwo.text}</p>
-                                        <p className="card-text"><Link className="nav-link" to={`/question/${questionKey}`}>View poll</Link></p>
-                                    </div>
+                                <div className="tab" id="Not-answered" style={{display:"none"}}>
+                                    <h3>Not answred</h3>
+                                    {questions && notAnswredQuestions.sort((firstQuestion, secondQuestion)=>{
+                                        return questions[secondQuestion].timestamp - questions[firstQuestion].timestamp;
+                                    }).map(questionKey => {
+                                        return <Question questionId={questionKey} key={questionKey}/>
+                                    })}
                                 </div>
-                            )
-                        })}
+                            </div>
+
+                        </div>
+
+                        
                     </div>
                 }
             </div>
         )
     }
 }
-function mapStateToProps({questions, authedUser}){
+function mapStateToProps({questions, authedUser, users}){
     return {
         questions,
-        authedUser
+        authedUser,
+        users
     }
 }
 

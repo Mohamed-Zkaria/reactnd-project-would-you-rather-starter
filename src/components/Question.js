@@ -1,18 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, Redirect} from "react-router-dom";
 
 class Question extends React.Component{
 
     render(){
-        const {questions, authedUser , questionId} = this.props;
+        const {questions, authedUser , questionId, users} = this.props;
         
-        if(!authedUser){
-            return <Redirect to="/login" />
-        }
-
         const question = questions[questionId];
+
+        if(!question){
+            return <Redirect to="/404" />
+        }
         
         const userAnswred = question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser);
         let firstOptionClass = "card-text";
@@ -27,15 +26,25 @@ class Question extends React.Component{
                 firstOptionClass += " alert alert-secondary";
                 secondOptionClass += " alert alert-success";
             }
+        } else {
+            firstOptionClass += " alert alert-secondary";
+            secondOptionClass += " alert alert-secondary";
         }
+        let optionOneVoters = questions[questionId].optionOne.votes.length;
+        let optionTwoVoters = questions[questionId].optionTwo.votes.length;
 
         return(
             <div className="container d-flex flex-column justify-content-between text-center">
                 <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">{`${question.author} Asks:`}</h5>
-                        <p className={firstOptionClass}>{question.optionOne.text}</p>
-                        <p className={secondOptionClass}>{question.optionTwo.text}</p>
+                        <img className="card-img-top" src={`${users[questions[questionId].author].avatarURL}`} style={{width: "25%"}} alt={`${users[questions[questionId].author].name} avatar`} />
+                        <h5 className="card-title">{`${questions[questionId].author} Asks:`}</h5>
+                        <h6>Would you rather?</h6>
+                        <p className={firstOptionClass}>{questions[questionId].optionOne.text}</p>
+                        <p>total people answered: {questions[questionId].optionOne.votes.length} in percentage: {Math.round((optionOneVoters/(optionOneVoters + optionTwoVoters)) * 100) || 0}%</p>
+                        <p className={secondOptionClass}>{questions[questionId].optionTwo.text}</p>
+                        <p>total people answered: {questions[questionId].optionTwo.votes.length}  in percentage: {Math.round((optionTwoVoters/ (optionOneVoters + optionTwoVoters)) * 100) || 0 }%</p>
+                        <p className="card-text"><Link className="nav-link" to={`/question/${questionId}`}>View poll</Link></p>
                         {!userAnswred &&<p className="card-text"><Link className="nav-link" to={`/question-answer/${question.id}`}>Answer poll</Link></p>}
                     </div>
                 </div>
@@ -45,12 +54,13 @@ class Question extends React.Component{
     }
 }
 
-function mapStateToProps({questions, authedUser}, props){
-    let {questionId} = props.match.params;
+function mapStateToProps({questions, authedUser, users}, props){
+    let {questionId} = props.match ? props.match.params : props;
     return {
         questions,
         authedUser,
-        questionId
+        questionId,
+        users
     }
 }
 

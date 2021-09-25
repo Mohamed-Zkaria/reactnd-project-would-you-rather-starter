@@ -1,14 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
-
 
 class Leaderboard extends React.Component{
     render(){
-        const {users, authedUser} = this.props
-        if(!authedUser ){
-            return <Redirect to="/login"/>
-        }
+        const {users} = this.props
+
         return (
             <div className="container d-flex flex-column justify-content-between text-center">
                 <h2>Leaderboard</h2>
@@ -19,8 +15,8 @@ class Leaderboard extends React.Component{
                         return totalRankSecondtUser - totalRankFirstUser; 
                     }).map(user => {
                         return (
-                            <div className="card" key={users[user].id}>
-                                <img className="card-img-top" src={`${users[user].avatarURL}`} alt={`${users[user].name} avatar`} />
+                            <div className="card container d-flex flex-column justify-content-between" key={users[user].id}>
+                                <img className="card-img-top" src={`${users[user].avatarURL}`} style={{width: "25%"}} alt={`${users[user].name} avatar`} />
                                 <div className="card-body">
                                     <h5 className="card-title">{users[user].name}</h5>
                                     <p className="card-text">Questions asked: {users[user].questions.length}</p>

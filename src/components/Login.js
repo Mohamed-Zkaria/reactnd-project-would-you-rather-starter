@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
+import { Redirect, withRouter } from "react-router";
 import { handleLogin } from "../actions/shared";
 
 
@@ -32,10 +32,11 @@ class Login extends React.Component{
 
 
     render(){
-        const {users, authedUser} = this.props;
-        
-        if(authedUser || this.state.logged){
-            return <Redirect to="/"/>
+        const {users} = this.props;
+        const {from} = this.props.location.state || {from:{pathnane: "/"}};
+
+        if(this.state.logged){
+            return <Redirect to={from}/>
         }
 
         return (       
@@ -66,4 +67,4 @@ function mapStateToProps({users, authedUser}){
     }
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(withRouter(Login));

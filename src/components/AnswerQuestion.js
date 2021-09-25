@@ -28,11 +28,7 @@ class AnswerQuestion extends React.Component{
     }
     
     render(){
-        const {questions, authedUser , questionId} = this.props;
-
-        if(!authedUser){
-            return <Redirect to="/login" />
-        }
+        const {questions, questionId} = this.props;
 
         if(this.state.redirectToQuestion){
             return <Redirect to={`/question/${questionId}`} />

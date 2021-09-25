@@ -35,15 +35,6 @@ class AddQuestion extends React.Component{
 
     render(){
         
-
-        const {authedUser} = this.props;
-
-        if(!authedUser){
-            if(!authedUser ){
-                return <Redirect to="/login"/>
-            }
-        }
-        
         if(this.state.redirectToHome){
             return <Redirect to="/"/>
 
